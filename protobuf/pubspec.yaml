@@ -1,4 +1,4 @@
-name: protobuf
+name: protobuf2
 version: 1.0.1
 description: >
   Runtime library for protocol buffers support.
