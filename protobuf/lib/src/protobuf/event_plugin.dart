@@ -15,7 +15,7 @@ abstract class EventPlugin {
   /// Initializes the plugin.
   ///
   /// GeneratedMessage calls this once in its constructors.
-  void attach(GeneratedMessage parent);
+  void attach(GeneratedMessage2 parent);
 
   /// If false, GeneratedMessage will skip calls to event handlers.
   bool get hasObservers;

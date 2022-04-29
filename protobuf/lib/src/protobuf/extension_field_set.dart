@@ -171,7 +171,7 @@ class _ExtensionFieldSet {
         final entries = _values[field.tagNumber];
         if (entries == null) continue;
         if (field.isGroupOrMessage) {
-          for (var subMessage in entries as List<GeneratedMessage>) {
+          for (var subMessage in entries as List<GeneratedMessage2>) {
             subMessage.freeze();
           }
         }
@@ -179,7 +179,7 @@ class _ExtensionFieldSet {
       } else if (field.isGroupOrMessage) {
         final entry = _values[field.tagNumber];
         if (entry != null) {
-          (entry as GeneratedMessage).freeze();
+          (entry as GeneratedMessage2).freeze();
         }
       }
     }

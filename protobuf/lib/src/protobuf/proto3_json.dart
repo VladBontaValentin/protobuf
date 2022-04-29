@@ -37,7 +37,7 @@ Object _writeToProto3Json(_FieldSet fs, TypeRegistry typeRegistry) {
 
     if (_isGroupOrMessage(fieldType)) {
       return _writeToProto3Json(
-          (fieldValue as GeneratedMessage)._fieldSet, typeRegistry);
+          (fieldValue as GeneratedMessage2)._fieldSet, typeRegistry);
     } else if (_isEnum(fieldType)) {
       return (fieldValue as ProtobufEnum).name;
     } else {
@@ -266,7 +266,7 @@ void _mergeFromProto3Json(
               'Expected int or stringified int', value);
         case PbFieldType._GROUP_BIT:
         case PbFieldType._MESSAGE_BIT:
-          GeneratedMessage subMessage = fieldInfo.subBuilder();
+          GeneratedMessage2 subMessage = fieldInfo.subBuilder();
           recursionHelper(value, subMessage._fieldSet);
           return subMessage;
         default:
@@ -383,9 +383,9 @@ void _mergeFromProto3Json(
             }
           } else if (_isGroupOrMessage(fieldInfo.type)) {
             // TODO(sigurdm) consider a cleaner separation between parsing and merging.
-            GeneratedMessage parsedSubMessage =
+            GeneratedMessage2 parsedSubMessage =
                 convertProto3JsonValue(value, fieldInfo);
-            GeneratedMessage original = fieldSet._values[fieldInfo.index];
+            GeneratedMessage2 original = fieldSet._values[fieldInfo.index];
             if (original == null) {
               fieldSet._values[fieldInfo.index] = parsedSubMessage;
             } else {

@@ -48,7 +48,7 @@ class ExtensionRegistry {
   ///
   /// Using this method to retrieve extensions is more expensive overall than
   /// using an [ExtensionRegistry] with all the needed extensions when doing
-  /// [GeneratedMessage.fromBuffer].
+  /// [GeneratedMessage2.fromBuffer].
   ///
   /// Example:
   ///
@@ -86,11 +86,11 @@ class ExtensionRegistry {
   ///   expect(reparsed2.hasExtension(Sample.val2), isTrue);
   /// }
   /// ```
-  T reparseMessage<T extends GeneratedMessage>(T message) =>
+  T reparseMessage<T extends GeneratedMessage2>(T message) =>
       _reparseMessage(message, this);
 }
 
-T _reparseMessage<T extends GeneratedMessage>(
+T _reparseMessage<T extends GeneratedMessage2>(
     T message, ExtensionRegistry extensionRegistry) {
   T result;
   T ensureResult() {
@@ -138,8 +138,8 @@ T _reparseMessage<T extends GeneratedMessage>(
       if (messageEntries == null) return;
       if (field.isGroupOrMessage) {
         for (int i = 0; i < messageEntries.length; i++) {
-          final GeneratedMessage entry = messageEntries[i];
-          final GeneratedMessage reparsedEntry =
+          final GeneratedMessage2 entry = messageEntries[i];
+          final GeneratedMessage2 reparsedEntry =
               _reparseMessage(entry, extensionRegistry);
           if (!identical(entry, reparsedEntry)) {
             ensureEntries()[i] = reparsedEntry;
@@ -151,8 +151,8 @@ T _reparseMessage<T extends GeneratedMessage>(
       if (messageMap == null) return;
       if (_isGroupOrMessage(field.valueFieldType)) {
         for (var key in messageMap.keys) {
-          final GeneratedMessage value = messageMap[key];
-          final GeneratedMessage reparsedValue =
+          final GeneratedMessage2 value = messageMap[key];
+          final GeneratedMessage2 reparsedValue =
               _reparseMessage(value, extensionRegistry);
           if (!identical(value, reparsedValue)) {
             ensureMap()[key] = reparsedValue;
@@ -162,7 +162,7 @@ T _reparseMessage<T extends GeneratedMessage>(
     } else if (field.isGroupOrMessage) {
       final messageSubField = message._fieldSet._values[field.index];
       if (messageSubField == null) return;
-      final GeneratedMessage reparsedSubField =
+      final GeneratedMessage2 reparsedSubField =
           _reparseMessage(messageSubField, extensionRegistry);
       if (!identical(messageSubField, reparsedSubField)) {
         ensureResult()._fieldSet._values[field.index] = reparsedSubField;
@@ -192,6 +192,6 @@ class _EmptyExtensionRegistry implements ExtensionRegistry {
 
   Extension getExtension(String messageName, int tagNumber) => null;
 
-  T reparseMessage<T extends GeneratedMessage>(T message) =>
+  T reparseMessage<T extends GeneratedMessage2>(T message) =>
       _reparseMessage(message, this);
 }

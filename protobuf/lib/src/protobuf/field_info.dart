@@ -116,11 +116,11 @@ class FieldInfo<T> {
 
     if (!isRepeated) {
       // A required message: recurse.
-      GeneratedMessage message = value;
+      GeneratedMessage2 message = value;
       return message._fieldSet._hasRequiredValues();
     }
 
-    List<GeneratedMessage> list = value;
+    List<GeneratedMessage2> list = value;
     if (list.isEmpty) return true;
 
     // For message types that (recursively) contain no required fields,
@@ -128,7 +128,7 @@ class FieldInfo<T> {
     if (!list[0]._fieldSet._hasRequiredFields) return true;
 
     // Recurse on each item in the list.
-    return list.every((GeneratedMessage m) => m._fieldSet._hasRequiredValues());
+    return list.every((GeneratedMessage2 m) => m._fieldSet._hasRequiredValues());
   }
 
   /// Appends the dotted path to each required field that's missing a value.
@@ -139,10 +139,10 @@ class FieldInfo<T> {
       // primitive and present
     } else if (!isRepeated) {
       // Required message/group: recurse.
-      GeneratedMessage message = value;
+      GeneratedMessage2 message = value;
       message._fieldSet._appendInvalidFields(problems, '$prefix$name.');
     } else {
-      final list = value as List<GeneratedMessage>;
+      final list = value as List<GeneratedMessage2>;
       if (list.isEmpty) return;
 
       // For message types that (recursively) contain no required fields,
@@ -151,7 +151,7 @@ class FieldInfo<T> {
 
       // Recurse on each item in the list.
       int position = 0;
-      for (GeneratedMessage message in list) {
+      for (GeneratedMessage2 message in list) {
         message._fieldSet
             ._appendInvalidFields(problems, '$prefix$name[$position].');
         position++;
@@ -163,13 +163,13 @@ class FieldInfo<T> {
   ///
   /// Delegates actual list creation to the message, so that it can
   /// be overridden by a mixin.
-  List<T> _createRepeatedField(GeneratedMessage m) {
+  List<T> _createRepeatedField(GeneratedMessage2 m) {
     assert(isRepeated);
     return m.createRepeatedField<T>(tagNumber, this);
   }
 
   /// Same as above, but allow a tighter typed List to be created.
-  List<S> _createRepeatedFieldWithType<S extends T>(GeneratedMessage m) {
+  List<S> _createRepeatedFieldWithType<S extends T>(GeneratedMessage2 m) {
     assert(isRepeated);
     return m.createRepeatedField<S>(tagNumber, this);
   }
@@ -228,7 +228,7 @@ class MapFieldInfo<K, V> extends FieldInfo<PbMap<K, V>> {
     return fs._ensureMapField<K, V>(this);
   }
 
-  Map<K, V> _createMapField(GeneratedMessage m) {
+  Map<K, V> _createMapField(GeneratedMessage2 m) {
     assert(isMapField);
     return m.createMapField<K, V>(tagNumber, this);
   }

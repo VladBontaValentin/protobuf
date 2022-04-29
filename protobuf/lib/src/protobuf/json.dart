@@ -151,7 +151,7 @@ void _setJsonField(
 }
 
 /// Converts [value] from the Json format to the Dart data type
-/// suitable for inserting into the corresponding [GeneratedMessage] field.
+/// suitable for inserting into the corresponding [GeneratedMessage2] field.
 ///
 /// Returns the converted value.  This function returns [null] if the caller
 /// should ignore the field value, because it is an unknown enum value.
@@ -237,7 +237,7 @@ _convertJsonValue(_FieldSet fs, value, int tagNumber, int fieldType,
     case PbFieldType._MESSAGE_BIT:
       if (value is Map) {
         Map<String, dynamic> messageValue = value;
-        GeneratedMessage subMessage =
+        GeneratedMessage2 subMessage =
             fs._meta._makeEmptyMessage(tagNumber, registry);
         _mergeFromJsonMap(subMessage._fieldSet, messageValue, registry);
         return subMessage;

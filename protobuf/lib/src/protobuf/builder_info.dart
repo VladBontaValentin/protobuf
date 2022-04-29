@@ -19,9 +19,9 @@ class BuilderInfo {
   List<FieldInfo> _sortedByTag;
 
   // For well-known types.
-  final Object Function(GeneratedMessage message, TypeRegistry typeRegistry)
+  final Object Function(GeneratedMessage2 message, TypeRegistry typeRegistry)
       toProto3Json;
-  final Function(GeneratedMessage targetMessage, Object json,
+  final Function(GeneratedMessage2 targetMessage, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) fromProto3Json;
   final CreateBuilderFunc createEmptyInstance;
 
@@ -169,26 +169,26 @@ class BuilderInfo {
         protoName: protoName);
   }
 
-  void aOM<T extends GeneratedMessage>(int tagNumber, String name,
+  void aOM<T extends GeneratedMessage2>(int tagNumber, String name,
       {T Function() subBuilder, String protoName}) {
     add<T>(
         tagNumber,
         name,
         PbFieldType.OM,
-        GeneratedMessage._defaultMakerFor<T>(subBuilder),
+        GeneratedMessage2._defaultMakerFor<T>(subBuilder),
         subBuilder,
         null,
         null,
         protoName: protoName);
   }
 
-  void aQM<T extends GeneratedMessage>(int tagNumber, String name,
+  void aQM<T extends GeneratedMessage2>(int tagNumber, String name,
       {T Function() subBuilder, String protoName}) {
     add<T>(
         tagNumber,
         name,
         PbFieldType.QM,
-        GeneratedMessage._defaultMakerFor<T>(subBuilder),
+        GeneratedMessage2._defaultMakerFor<T>(subBuilder),
         subBuilder,
         null,
         null,
@@ -277,7 +277,7 @@ class BuilderInfo {
       ..sort((FieldInfo a, FieldInfo b) => a.tagNumber.compareTo(b.tagNumber));
   }
 
-  GeneratedMessage _makeEmptyMessage(
+  GeneratedMessage2 _makeEmptyMessage(
       int tagNumber, ExtensionRegistry extensionRegistry) {
     CreateBuilderFunc subBuilderFunc = subBuilder(tagNumber);
     if (subBuilderFunc == null && extensionRegistry != null) {

@@ -40,7 +40,7 @@ abstract class ReadonlyMessageMixin {
           [ExtensionRegistry extensionRegistry = ExtensionRegistry.EMPTY]) =>
       _readonly("mergeFromJsonMap");
 
-  void mergeFromMessage(GeneratedMessage other) =>
+  void mergeFromMessage(GeneratedMessage2 other) =>
       _readonly("mergeFromMessage");
 
   void mergeUnknownFields(UnknownFieldSet unknownFieldSet) =>

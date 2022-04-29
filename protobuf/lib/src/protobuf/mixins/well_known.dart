@@ -10,7 +10,7 @@ import '../json_parsing_context.dart';
 import '../../../protobuf.dart';
 import '../type_registry.dart';
 
-abstract class AnyMixin implements GeneratedMessage {
+abstract class AnyMixin implements GeneratedMessage2 {
   String get typeUrl;
   set typeUrl(String value);
   List<int> get value;
@@ -20,7 +20,7 @@ abstract class AnyMixin implements GeneratedMessage {
   ///
   /// Can be used with a default instance:
   /// `any.canUnpackInto(Message.getDefault())`
-  bool canUnpackInto(GeneratedMessage instance) {
+  bool canUnpackInto(GeneratedMessage2 instance) {
     return canUnpackIntoHelper(instance, typeUrl);
   }
 
@@ -32,7 +32,7 @@ abstract class AnyMixin implements GeneratedMessage {
   /// A typical usage would be `any.unpackInto(Message())`.
   ///
   /// Returns [instance].
-  T unpackInto<T extends GeneratedMessage>(T instance,
+  T unpackInto<T extends GeneratedMessage2>(T instance,
       {ExtensionRegistry extensionRegistry = ExtensionRegistry.EMPTY}) {
     unpackIntoHelper(value, instance, typeUrl,
         extensionRegistry: extensionRegistry);
@@ -43,7 +43,7 @@ abstract class AnyMixin implements GeneratedMessage {
   ///
   /// The [typeUrl] will be [typeUrlPrefix]/`fullName` where `fullName` is
   /// the fully qualified name of the type of [message].
-  static void packIntoAny(AnyMixin target, GeneratedMessage message,
+  static void packIntoAny(AnyMixin target, GeneratedMessage2 message,
       {String typeUrlPrefix = 'type.googleapis.com'}) {
     target.value = message.writeToBuffer();
     target.typeUrl = '${typeUrlPrefix}/${message.info_.qualifiedMessageName}';
@@ -78,14 +78,14 @@ abstract class AnyMixin implements GeneratedMessage {
   //       "value": "1.212s"
   //     }
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     AnyMixin any = message as AnyMixin;
     BuilderInfo info = typeRegistry.lookup(_typeNameFromUrl(any.typeUrl));
     if (info == null) {
       throw ArgumentError(
           'The type of the Any message (${any.typeUrl}) is not in the given typeRegistry.');
     }
-    GeneratedMessage unpacked = info.createEmptyInstance()
+    GeneratedMessage2 unpacked = info.createEmptyInstance()
       ..mergeFromBuffer(any.value);
     Object proto3Json = unpacked.toProto3Json();
     if (info.toProto3Json == null) {
@@ -97,7 +97,7 @@ abstract class AnyMixin implements GeneratedMessage {
     }
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is! Map<String, dynamic>) {
       throw context.parseException(
@@ -120,7 +120,7 @@ abstract class AnyMixin implements GeneratedMessage {
           ? (Map<String, dynamic>.from(object)..remove('@type'))
           : object['value'];
       // TODO(sigurdm): We lose [context.path].
-      GeneratedMessage packedMessage = info.createEmptyInstance()
+      GeneratedMessage2 packedMessage = info.createEmptyInstance()
         ..mergeFromProto3Json(subJson,
             typeRegistry: typeRegistry,
             supportNamesWithUnderscores: context.supportNamesWithUnderscores,
@@ -191,7 +191,7 @@ abstract class TimestampMixin {
   // For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
   // 01:30 UTC on January 15, 2017.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     TimestampMixin timestamp = message as TimestampMixin;
     DateTime dateTime = timestamp.toDateTime();
 
@@ -227,7 +227,7 @@ abstract class TimestampMixin {
     return "$y-$m-${d}T$h:$min:$sec${secFrac}Z";
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is String) {
       String jsonWithoutFracSec = json;
@@ -268,7 +268,7 @@ abstract class DurationMixin {
   static final RegExp finalZeroes = RegExp(r'0+$');
 
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     DurationMixin duration = message as DurationMixin;
     String secFrac = duration.nanos
         // nanos and seconds should always have the same sign.
@@ -282,7 +282,7 @@ abstract class DurationMixin {
 
   static final RegExp durationPattern = RegExp(r'(-?\d*)(?:\.(\d*))?s$');
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     DurationMixin duration = message as DurationMixin;
     if (json is String) {
@@ -305,27 +305,27 @@ abstract class DurationMixin {
   }
 }
 
-abstract class StructMixin implements GeneratedMessage {
+abstract class StructMixin implements GeneratedMessage2 {
   Map<String, ValueMixin> get fields;
   static const _fieldsFieldTagNumber = 1;
 
   // From google/protobuf/struct.proto:
   // The JSON representation for `Struct` is JSON object.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     StructMixin struct = message as StructMixin;
     return struct.fields.map((key, value) =>
         MapEntry(key, ValueMixin.toProto3JsonHelper(value, typeRegistry)));
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is Map) {
       // Check for emptiness to avoid setting `.fields` if there are no
       // values.
       if (json.isNotEmpty) {
         Map<String, ValueMixin> fields = (message as StructMixin).fields;
-        GeneratedMessage Function() valueCreator =
+        GeneratedMessage2 Function() valueCreator =
             (message.info_.fieldInfo[_fieldsFieldTagNumber] as MapFieldInfo)
                 .valueCreator;
 
@@ -347,7 +347,7 @@ abstract class StructMixin implements GeneratedMessage {
   }
 }
 
-abstract class ValueMixin implements GeneratedMessage {
+abstract class ValueMixin implements GeneratedMessage2 {
   bool hasNullValue();
   ProtobufEnum get nullValue;
   set nullValue(covariant ProtobufEnum value);
@@ -370,7 +370,7 @@ abstract class ValueMixin implements GeneratedMessage {
   // From google/protobuf/struct.proto:
   // The JSON representation for `Value` is JSON value
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     ValueMixin value = message as ValueMixin;
     // This would ideally be a switch, but we cannot import the enum we are
     // switching over.
@@ -391,7 +391,7 @@ abstract class ValueMixin implements GeneratedMessage {
     }
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     ValueMixin value = message as ValueMixin;
     if (json == null) {
@@ -423,13 +423,13 @@ abstract class ValueMixin implements GeneratedMessage {
   }
 }
 
-abstract class ListValueMixin implements GeneratedMessage {
+abstract class ListValueMixin implements GeneratedMessage2 {
   List<ValueMixin> get values;
 
   // From google/protobuf/struct.proto:
   // The JSON representation for `ListValue` is JSON array.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     ListValueMixin list = message as ListValueMixin;
     return list.values
         .map((value) => ValueMixin.toProto3JsonHelper(value, typeRegistry))
@@ -438,7 +438,7 @@ abstract class ListValueMixin implements GeneratedMessage {
 
   static const _valueFieldTagNumber = 1;
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     ListValueMixin list = message as ListValueMixin;
     if (json is List) {
@@ -468,7 +468,7 @@ abstract class FieldMaskMixin {
   // separated by a comma. Fields name in each path are converted
   // to/from lower-camel naming conventions.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     FieldMaskMixin fieldMask = message as FieldMaskMixin;
     for (String path in fieldMask.paths) {
       if (path.contains(RegExp('[A-Z]|_[^a-z]'))) {
@@ -479,7 +479,7 @@ abstract class FieldMaskMixin {
     return fieldMask.paths.map(_toCamelCase).join(',');
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is String) {
       if (json.contains('_')) {
@@ -516,11 +516,11 @@ abstract class DoubleValueMixin {
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `DoubleValue` is JSON number.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return (message as DoubleValueMixin).value;
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is num) {
       (message as DoubleValueMixin).value = json.toDouble();
@@ -542,11 +542,11 @@ abstract class FloatValueMixin {
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `FloatValue` is JSON number.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return (message as FloatValueMixin).value;
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is num) {
       (message as FloatValueMixin).value = json.toDouble();
@@ -568,11 +568,11 @@ abstract class Int64ValueMixin {
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `Int64Value` is JSON string.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return (message as Int64ValueMixin).value.toString();
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is int) {
       (message as Int64ValueMixin).value = Int64(json);
@@ -596,11 +596,11 @@ abstract class UInt64ValueMixin {
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `UInt64Value` is JSON string.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return (message as UInt64ValueMixin).value.toStringUnsigned();
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is int) {
       (message as UInt64ValueMixin).value = Int64(json);
@@ -625,11 +625,11 @@ abstract class Int32ValueMixin {
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `Int32Value` is JSON number.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return (message as Int32ValueMixin).value;
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is int) {
       (message as Int32ValueMixin).value = json;
@@ -648,13 +648,13 @@ abstract class UInt32ValueMixin {
   int get value;
   set value(int value);
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return (message as UInt32ValueMixin).value;
   }
 
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `UInt32Value` is JSON number.
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is int) {
       (message as UInt32ValueMixin).value = json;
@@ -676,11 +676,11 @@ abstract class BoolValueMixin {
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `BoolValue` is JSON `true` and `false`
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return (message as BoolValueMixin).value;
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is bool) {
       (message as BoolValueMixin).value = json;
@@ -697,11 +697,11 @@ abstract class StringValueMixin {
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `StringValue` is JSON string.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return (message as StringValueMixin).value;
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is String) {
       (message as StringValueMixin).value = json;
@@ -718,11 +718,11 @@ abstract class BytesValueMixin {
   // From google/protobuf/wrappers.proto:
   // The JSON representation for `BytesValue` is JSON string.
   static Object toProto3JsonHelper(
-      GeneratedMessage message, TypeRegistry typeRegistry) {
+      GeneratedMessage2 message, TypeRegistry typeRegistry) {
     return base64.encode((message as BytesValueMixin).value);
   }
 
-  static void fromProto3JsonHelper(GeneratedMessage message, Object json,
+  static void fromProto3JsonHelper(GeneratedMessage2 message, Object json,
       TypeRegistry typeRegistry, JsonParsingContext context) {
     if (json is String) {
       try {

@@ -32,7 +32,7 @@ FrozenMessageErrorHandler frozenMessageModificationHandler =
 /// polymorphic access due to inheritance. This turns out to
 /// be faster when compiled to JavaScript.
 class _FieldSet {
-  final GeneratedMessage _message;
+  final GeneratedMessage2 _message;
   final BuilderInfo _meta;
   final EventPlugin _eventPlugin;
   bool _isReadOnly = false;
@@ -128,7 +128,7 @@ class _FieldSet {
         final entries = _values[field.index];
         if (entries == null) continue;
         if (field.isGroupOrMessage) {
-          for (var subMessage in entries as List<GeneratedMessage>) {
+          for (var subMessage in entries as List<GeneratedMessage2>) {
             subMessage.freeze();
           }
         }
@@ -140,7 +140,7 @@ class _FieldSet {
       } else if (field.isGroupOrMessage) {
         final entry = _values[field.index];
         if (entry != null) {
-          (entry as GeneratedMessage).freeze();
+          (entry as GeneratedMessage2).freeze();
         }
       }
     }
@@ -641,7 +641,7 @@ class _FieldSet {
 
   void writeString(StringBuffer out, String indent) {
     void renderValue(key, value) {
-      if (value is GeneratedMessage) {
+      if (value is GeneratedMessage2) {
         out.write('$indent$key: {\n');
         value._fieldSet.writeString(out, '$indent  ');
         out.write('$indent}\n');
@@ -747,7 +747,7 @@ class _FieldSet {
     if (fi.isRepeated) {
       if (mustClone) {
         // fieldValue must be a PbListBase of GeneratedMessage.
-        PbListBase<GeneratedMessage> pbList = fieldValue;
+        PbListBase<GeneratedMessage2> pbList = fieldValue;
         var repeatedFields = fi._ensureRepeatedField(this);
         for (int i = 0; i < pbList.length; ++i) {
           repeatedFields.add(_cloneMessage(pbList[i]));
@@ -784,7 +784,7 @@ class _FieldSet {
   // closure since dart2js does not currently hoist closures with no captured
   // variables (See http://dartbug.com/26932), and dart2js will inline this
   // version at the direct call site.
-  static GeneratedMessage _cloneMessage(GeneratedMessage message) =>
+  static GeneratedMessage2 _cloneMessage(GeneratedMessage2 message) =>
       message.clone();
 
   // Error-checking

@@ -4,7 +4,7 @@
 
 part of protobuf;
 
-/// Writer used for converting [GeneratedMessage]s into binary
+/// Writer used for converting [GeneratedMessage2]s into binary
 /// representation.
 ///
 /// Note that it is impossible to serialize protobuf messages using a one pass

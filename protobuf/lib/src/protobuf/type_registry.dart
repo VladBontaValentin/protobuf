@@ -20,7 +20,7 @@ class TypeRegistry {
   /// ```dart
   /// TypeRegistry([Foo(), Bar()]);
   /// ```
-  TypeRegistry(Iterable<GeneratedMessage> types)
+  TypeRegistry(Iterable<GeneratedMessage2> types)
       : _mapping = Map.fromEntries(types.map((message) =>
             MapEntry(message.info_.qualifiedMessageName, message.info_)));
 

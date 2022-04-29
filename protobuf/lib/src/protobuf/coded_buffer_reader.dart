@@ -57,7 +57,7 @@ class CodedBufferReader {
     }
   }
 
-  void readGroup(int fieldNumber, GeneratedMessage message,
+  void readGroup(int fieldNumber, GeneratedMessage2 message,
       ExtensionRegistry extensionRegistry) {
     if (_recursionDepth >= _recursionLimit) {
       throw InvalidProtocolBufferException.recursionLimitExceeded();
@@ -81,7 +81,7 @@ class CodedBufferReader {
   }
 
   void readMessage(
-      GeneratedMessage message, ExtensionRegistry extensionRegistry) {
+      GeneratedMessage2 message, ExtensionRegistry extensionRegistry) {
     int length = readInt32();
     if (_recursionDepth >= _recursionLimit) {
       throw InvalidProtocolBufferException.recursionLimitExceeded();

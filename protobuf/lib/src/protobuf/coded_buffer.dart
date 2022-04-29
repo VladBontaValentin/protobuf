@@ -78,7 +78,7 @@ void _mergeFromCodedBufferReader(
         }
         break;
       case PbFieldType._OPTIONAL_GROUP:
-        GeneratedMessage subMessage =
+        GeneratedMessage2 subMessage =
             fs._meta._makeEmptyMessage(tagNumber, registry);
         var oldValue = fs._getFieldOrNull(fi);
         if (oldValue != null) {
@@ -118,7 +118,7 @@ void _mergeFromCodedBufferReader(
         fs._setFieldUnchecked(fi, input.readSfixed64());
         break;
       case PbFieldType._OPTIONAL_MESSAGE:
-        GeneratedMessage subMessage =
+        GeneratedMessage2 subMessage =
             fs._meta._makeEmptyMessage(tagNumber, registry);
         var oldValue = fs._getFieldOrNull(fi);
         if (oldValue != null) {
@@ -146,7 +146,7 @@ void _mergeFromCodedBufferReader(
         _readPackableToListEnum(fs, input, wireType, fi, tagNumber, registry);
         break;
       case PbFieldType._REPEATED_GROUP:
-        GeneratedMessage subMessage =
+        GeneratedMessage2 subMessage =
             fs._meta._makeEmptyMessage(tagNumber, registry);
         input.readGroup(tagNumber, subMessage, registry);
         fs._ensureRepeatedField(fi).add(subMessage);
@@ -182,7 +182,7 @@ void _mergeFromCodedBufferReader(
         _readPackable(fs, input, wireType, fi, input.readSfixed64);
         break;
       case PbFieldType._REPEATED_MESSAGE:
-        GeneratedMessage subMessage =
+        GeneratedMessage2 subMessage =
             fs._meta._makeEmptyMessage(tagNumber, registry);
         input.readMessage(subMessage, registry);
         fs._ensureRepeatedField(fi).add(subMessage);

@@ -4,7 +4,7 @@
 
 part of protobuf;
 
-typedef GeneratedMessage CreateBuilderFunc();
+typedef GeneratedMessage2 CreateBuilderFunc();
 typedef MakeDefaultFunc();
 typedef ProtobufEnum ValueOfFunc(int value);
 
@@ -16,22 +16,22 @@ typedef ProtobufEnum ValueOfFunc(int value);
 /// Public properties and methods added here should also be added to
 /// GeneratedMessage_reservedNames and should be unlikely to be used in
 /// a proto file.
-abstract class GeneratedMessage {
+abstract class GeneratedMessage2 {
   _FieldSet _fieldSet;
 
-  GeneratedMessage() {
+  GeneratedMessage2() {
     _fieldSet = _FieldSet(this, info_, eventPlugin);
     if (eventPlugin != null) eventPlugin.attach(this);
   }
 
-  GeneratedMessage.fromBuffer(
+  GeneratedMessage2.fromBuffer(
       List<int> input, ExtensionRegistry extensionRegistry) {
     _fieldSet = _FieldSet(this, info_, eventPlugin);
     if (eventPlugin != null) eventPlugin.attach(this);
     mergeFromBuffer(input, extensionRegistry);
   }
 
-  GeneratedMessage.fromJson(String input, ExtensionRegistry extensionRegistry) {
+  GeneratedMessage2.fromJson(String input, ExtensionRegistry extensionRegistry) {
     _fieldSet = _FieldSet(this, info_, eventPlugin);
     if (eventPlugin != null) eventPlugin.attach(this);
     mergeFromJson(input, extensionRegistry);
@@ -46,17 +46,17 @@ abstract class GeneratedMessage {
 
   /// Creates a deep copy of the fields in this message.
   /// (The generated code uses [mergeFromMessage].)
-  GeneratedMessage clone();
+  GeneratedMessage2 clone();
 
   /// Creates an empty instance of the same message type as this.
-  GeneratedMessage createEmptyInstance();
+  GeneratedMessage2 createEmptyInstance();
 
   UnknownFieldSet get unknownFields => _fieldSet._ensureUnknownFields();
 
   /// Make this message read-only.
   ///
   /// Marks this message, and any sub-messages, as read-only.
-  GeneratedMessage freeze() {
+  GeneratedMessage2 freeze() {
     _fieldSet._markReadOnly();
     return this;
   }
@@ -79,7 +79,7 @@ abstract class GeneratedMessage {
   /// Similarly for map fields, the maps will be copied, but share the elements.
   // TODO(nichite, sigurdm): Consider returning an actual builder object that
   // lazily creates builders.
-  GeneratedMessage toBuilder() {
+  GeneratedMessage2 toBuilder() {
     final result = createEmptyInstance();
     result._fieldSet._shallowCopyValues(_fieldSet);
     return result;
@@ -89,7 +89,7 @@ abstract class GeneratedMessage {
   ///
   /// Makes a writable copy of this message, applies the [updates] to it, and
   /// marks the copy read-only before returning it.
-  GeneratedMessage copyWith(void Function(GeneratedMessage) updates) {
+  GeneratedMessage2 copyWith(void Function(GeneratedMessage2) updates) {
     final builder = toBuilder();
     updates(builder);
     return builder.freeze();
@@ -113,7 +113,7 @@ abstract class GeneratedMessage {
   @override
   bool operator ==(other) {
     if (identical(this, other)) return true;
-    return other is GeneratedMessage
+    return other is GeneratedMessage2
         ? _fieldSet._equals(other._fieldSet)
         : false;
   }
@@ -185,7 +185,7 @@ abstract class GeneratedMessage {
 
   /// Returns the JSON encoding of this message as a Dart [Map].
   ///
-  /// The encoding is described in [GeneratedMessage.writeToJson].
+  /// The encoding is described in [GeneratedMessage2.writeToJson].
   Map<String, dynamic> writeToJsonMap() => _writeToJsonMap(_fieldSet);
 
   /// Returns a JSON string that encodes this message.
@@ -255,7 +255,7 @@ abstract class GeneratedMessage {
           supportNamesWithUnderscores, permissiveEnums);
 
   /// Merges field values from [data], a JSON object, encoded as described by
-  /// [GeneratedMessage.writeToJson].
+  /// [GeneratedMessage2.writeToJson].
   ///
   /// For the proto3 JSON format use: [mergeFromProto3JSON].
   void mergeFromJson(String data,
@@ -273,7 +273,7 @@ abstract class GeneratedMessage {
 
   /// Merges field values from a JSON object represented as a Dart map.
   ///
-  /// The encoding is described in [GeneratedMessage.writeToJson].
+  /// The encoding is described in [GeneratedMessage2.writeToJson].
   void mergeFromJsonMap(Map<String, dynamic> json,
       [ExtensionRegistry extensionRegistry = ExtensionRegistry.EMPTY]) {
     _mergeFromJsonMap(_fieldSet, json, extensionRegistry);
@@ -362,7 +362,7 @@ abstract class GeneratedMessage {
   /// Singular fields that are set in [other] overwrite the corresponding fields
   /// in this message. Repeated fields are appended. Singular sub-messages are
   /// recursively merged.
-  void mergeFromMessage(GeneratedMessage other) =>
+  void mergeFromMessage(GeneratedMessage2 other) =>
       _fieldSet._mergeFromMessage(other._fieldSet);
 
   void mergeUnknownFields(UnknownFieldSet unknownFieldSet) => _fieldSet
@@ -489,12 +489,12 @@ abstract class GeneratedMessage {
 
   static final Map<Function, Function> _defaultMakers = {};
 
-  static T Function() _defaultMakerFor<T extends GeneratedMessage>(
+  static T Function() _defaultMakerFor<T extends GeneratedMessage2>(
       T Function() createFn) {
     return _defaultMakers[createFn] ??= _createDefaultMakerFor<T>(createFn);
   }
 
-  static T Function() _createDefaultMakerFor<T extends GeneratedMessage>(
+  static T Function() _createDefaultMakerFor<T extends GeneratedMessage2>(
       T Function() createFn) {
     T defaultValue;
     T defaultMaker() {
@@ -505,7 +505,7 @@ abstract class GeneratedMessage {
   }
 
   /// For generated code only.
-  static T $_defaultFor<T extends GeneratedMessage>(T Function() createFn) =>
+  static T $_defaultFor<T extends GeneratedMessage2>(T Function() createFn) =>
       _defaultMakerFor<T>(createFn)();
 }
 

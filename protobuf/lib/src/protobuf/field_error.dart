@@ -57,7 +57,7 @@ String _getFieldError(int fieldType, var value) {
 
     case PbFieldType._GROUP_BIT:
     case PbFieldType._MESSAGE_BIT:
-      if (value is! GeneratedMessage) return 'not a GeneratedMessage';
+      if (value is! GeneratedMessage2) return 'not a GeneratedMessage';
       return null;
     default:
       return 'field has unknown type $fieldType';

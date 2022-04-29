@@ -15,9 +15,9 @@ class ServerContext {
 /// that extend GeneratedService and dispatch requests by method.
 abstract class GeneratedService {
   /// Creates a message object that can deserialize a request.
-  GeneratedMessage createRequest(String methodName);
+  GeneratedMessage2 createRequest(String methodName);
 
   /// Dispatches the call. The request object should come from [createRequest].
-  Future<GeneratedMessage> handleCall(
-      ServerContext ctx, String methodName, GeneratedMessage request);
+  Future<GeneratedMessage2> handleCall(
+      ServerContext ctx, String methodName, GeneratedMessage2 request);
 }
